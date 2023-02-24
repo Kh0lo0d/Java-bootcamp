@@ -3,6 +3,7 @@ package com.example.final_project_training.Service;
 import com.example.final_project_training.Exception.ApiException;
 import com.example.final_project_training.Model.*;
 import com.example.final_project_training.Repositary.Coach_Repository;
+import com.example.final_project_training.Repositary.Reviews_Repository;
 import com.example.final_project_training.Repositary.Training_Repositary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class Coach_Service {
     private final Coach_Repository coachRepository;
     private final Training_Repositary training_repositary;
+    private final Reviews_Repository reviewsRepository;
 
     public List<Coach> getCoach(){
         return coachRepository.findAll();
@@ -33,6 +35,7 @@ public class Coach_Service {
         oldCoach.setYear_of_experience(newCoach.getYear_of_experience());
         oldCoach.setPrice(newCoach.getPrice());
         oldCoach.setGender(newCoach.getGender());
+        oldCoach.setCity(newCoach.getCity());
         coachRepository.save(oldCoach);
     }
 
@@ -45,6 +48,15 @@ public class Coach_Service {
     }
 
 
+    public void ReviewsAssignedtoCaoch(Integer coach_id, Integer review_id){
+        Coach coach = coachRepository.findCoachById(coach_id);
+        Reviews review = reviewsRepository.findReviewsById(review_id);
+        if(coach == null || review == null){
+            throw new ApiException("Coach or Review not found");
+        }
 
+        review.setCoach(coach);
+        reviewsRepository.save(review);
+    }
 
 }

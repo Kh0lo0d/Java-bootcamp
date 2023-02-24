@@ -39,10 +39,10 @@ public class Customer_Controller {
         return ResponseEntity.status(200).body("Customer deleted");
     }
 
-    @PostMapping("/{customer_id}/customer-order/{order_id}")
-    public ResponseEntity assignCustomerToOrder(@PathVariable Integer customer_id,@PathVariable Integer order_id)
+    @PutMapping("/{customer_id}/order/{order_id}")
+    public ResponseEntity OrdersAssignedtoCutomer(@PathVariable Integer customer_id,@PathVariable Integer order_id)
     {
-        customerService.assignCustomerToOrder(customer_id,order_id);
+        customerService.OrdersAssignedtoCutomer(customer_id,order_id);
 
         return ResponseEntity.status(200).body("CUSTOMER ASSIGN ORDER");
 

@@ -82,6 +82,17 @@ private final Training_Repositary training_repositary;
 
         }
     }
+
+    public List<Order_table> OrderDetails(Integer coach_id){
+        Order_table orterTable= orderRepositary.findOrder_tableById(coach_id);
+        if(orterTable == null){
+            throw new ApiException("Incorrect Input");
+        }
+
+
+        return orderRepositary.findOrder_tableByCoachId(coach_id);
+    }
+
 }
 
 

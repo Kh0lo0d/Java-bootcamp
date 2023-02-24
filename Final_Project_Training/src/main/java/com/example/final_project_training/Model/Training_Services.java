@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -49,7 +50,7 @@ public class Training_Services {
 
     @ManyToMany
     @JsonIgnore
-    private Set<Order_table>orderTables;
+    private List<Order_table> orderTables;
 
 
 

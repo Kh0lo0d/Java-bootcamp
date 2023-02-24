@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -50,5 +51,7 @@ public class Customer {
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-    private Set<Order_table>order_tables;
+    private List<Order_table> order_tables;
+
+
 }

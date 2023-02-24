@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/order")
@@ -45,11 +47,17 @@ public class OrderController {
         return ResponseEntity.status(200).body("COACH ASSIGN ORDER");
     }
 
-   /* @PutMapping("/{training_id}/order-train/{order_id}")
+   @PutMapping("/{training_id}/order-train/{order_id}")
     public ResponseEntity assignTrainingServicesToOrder(@PathVariable Integer training_id,@PathVariable Integer order_id){
         orderServices.assignTrainingServicesToOrder(training_id,order_id);
         return ResponseEntity.status(200).body("TRAINING SERVICES ASSIGN TO ORDER ");
-    }*/
+    }
+
+    @GetMapping("/details/{coach_id}")
+    public ResponseEntity OrderDetails(@PathVariable Integer coach_id){
+        List<Order_table> order = orderServices.OrderDetails(coach_id);
+        return ResponseEntity.status(200).body(order);
+    }
 
 
 

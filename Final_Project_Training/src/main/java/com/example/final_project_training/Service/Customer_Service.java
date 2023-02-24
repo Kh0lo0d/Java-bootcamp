@@ -50,7 +50,7 @@ public class Customer_Service {
         customerRepository.delete(customer);
     }
 
-    public void assignCustomerToOrder(Integer customer_id, Integer order_id) {
+    public void OrdersAssignedtoCutomer(Integer customer_id, Integer order_id) {
         Customer customer = customerRepository.findCustomerById(customer_id);
         Order_table orderTable = orderRepositary.findOrder_tableById(order_id);
         if (customer == null || orderTable == null) {
@@ -62,4 +62,21 @@ public class Customer_Service {
         }
 
     }
+    //Get all customers whose orders are accepted
+    public List<Customer> getListCustomer(String status){
+        Order_table orderTable = orderRepositary.findOrder_tableByStatus(status);
+
+        if(orderTable != null && orderTable.getStatus()=="ACCEPT")
+        {
+
+            List<Customer> customers = customerRepository.findAll();
+
+            // orderRepositary.save(orderTable);
+            return customers;
+
+        }
+
+        throw new ApiException("Incorrect Input");
+    }
+
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,16 +34,20 @@ public class Coach {
             message="Wrong gender ,gender should be Female or Male only")
     private String gender;
 
+    @Column(columnDefinition = "varchar(30) not null")
+    private String city;
+
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "coach")
-    private Set<Training_Services> training_services;
+    private List<Training_Services> training_services;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "coach")
-    private Set<Order_table> orderTables;
+    private List<Order_table> orderTables;
 
 
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coach")
+    private List<Reviews> reviews;
 
 
 }

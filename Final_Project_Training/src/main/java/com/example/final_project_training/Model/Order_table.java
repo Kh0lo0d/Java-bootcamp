@@ -11,6 +11,7 @@ import lombok.*;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -49,8 +50,10 @@ public class Order_table {
     @JsonIgnore
     private Coach coach;
 
+
+
     @ManyToMany(mappedBy = "orderTables")
-    private Set<Training_Services>training_services;
+    private List<Training_Services> training_services;
 
 
 
