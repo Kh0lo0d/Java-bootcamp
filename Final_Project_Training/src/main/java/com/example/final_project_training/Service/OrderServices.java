@@ -105,10 +105,10 @@ private final Customer_Repository customerRepository;
         }
         throw new ApiException("Coach have another Customer");
     }
-    public Double Total_price(Integer customer_id)//This endpoint to calculate total price of  order
+    public Double Total_price(Integer customer_id,Integer order_id)//This endpoint to calculate total price of  order
     {
       Customer customer=customerRepository.findCustomerById(customer_id);
-      Order_table orderTable=orderRepositary.findOrter_tableByCustomerId(customer_id);
+      Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
         if(customer == null){
             throw new ApiException("Not order of  customer");}
       List<Training_Services>training_services=customer.getTraining_services();
@@ -127,10 +127,11 @@ orderTable.setTotal_price(total_price);
     }
 
     //If the customer orders more than one training service, the customer gets a 20% discount on each order
-    public Double discount_Price(Integer customer_id)
+    public Double discount_Price(Integer customer_id,Integer order_id)
     {
         Customer customer=customerRepository.findCustomerById(customer_id);
-        Order_table orderTable=orderRepositary.findOrter_tableByCustomerId(customer_id);
+        Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
+
 
         if(customer == null){
             throw new ApiException("customer not found");}
