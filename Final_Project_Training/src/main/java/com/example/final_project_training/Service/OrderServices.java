@@ -108,6 +108,7 @@ private final Customer_Repository customerRepository;
     public Double Total_price(Integer customer_id)//This endpoint to calculate total price of  order
     {
       Customer customer=customerRepository.findCustomerById(customer_id);
+      Order_table orderTable=orderRepositary.findOrter_tableByCustomerId(customer_id);
         if(customer == null){
             throw new ApiException("Not order of  customer");}
       List<Training_Services>training_services=customer.getTraining_services();
@@ -120,6 +121,8 @@ private final Customer_Repository customerRepository;
           total_price=total_price+price;
 
       }
+orderTable.setTotal_price(total_price);
+      orderRepositary.save(orderTable);
       return total_price;
     }
 
@@ -127,6 +130,8 @@ private final Customer_Repository customerRepository;
     public Double discount_Price(Integer customer_id)
     {
         Customer customer=customerRepository.findCustomerById(customer_id);
+        Order_table orderTable=orderRepositary.findOrter_tableByCustomerId(customer_id);
+
         if(customer == null){
             throw new ApiException("customer not found");}
         List<Training_Services>training_services=customer.getTraining_services();
@@ -143,6 +148,8 @@ private final Customer_Repository customerRepository;
                 }
 
             }
+        orderTable.setTotal_price(total_price);
+        orderRepositary.save(orderTable);
         return total_price;
 
     }

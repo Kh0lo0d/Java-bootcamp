@@ -31,9 +31,8 @@ public class Order_table {
     @JsonFormat(pattern="HH:mm:ss")
     private Time time;
 
-    @NotNull(message="total_price should be not empty")
     @Positive(message="total_price must be Integer and grater than 0")
-    private Integer total_price;
+    private Double total_price;
 
     @NotEmpty(message="status should be not empty")
     @Pattern(regexp="^(PENDING|ACCEPT|REJECT|COMPLETE)$",
