@@ -81,8 +81,10 @@ public class TraingSrevice_Services {
             throw new ApiException("customer Or training service not Found");
         }
         else{
-            training_services.setCustomer(customer);
+            training_services.getCustomers().add(customer);
+            customer.getTraining_services().add(training_services);
             training_repositary.save(training_services);
+            customerRepository.save(customer);
         }
 
     }

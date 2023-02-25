@@ -26,8 +26,8 @@ public class Coach {
     private String license;
     @Column(columnDefinition = "int not null")
     private Integer year_of_experience;
-    @Column(columnDefinition = "int not null")
-    private Integer price;
+   /* @Column(columnDefinition = "int not null")
+    private Integer price;*/
 
     @NotEmpty(message="gender should be not empty")
     @Pattern(regexp="^(Female|Male)$",

@@ -53,6 +53,7 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
     private List<Order_table> order_tables;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+
+    @ManyToMany(mappedBy = "customers")
     private List<Training_Services> training_services;
 }

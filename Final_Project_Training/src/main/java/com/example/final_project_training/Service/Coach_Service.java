@@ -35,7 +35,6 @@ public class Coach_Service {
         oldCoach.setPhone_number(newCoach.getPhone_number());
         oldCoach.setLicense(newCoach.getLicense());
         oldCoach.setYear_of_experience(newCoach.getYear_of_experience());
-        oldCoach.setPrice(newCoach.getPrice());
         oldCoach.setGender(newCoach.getGender());
         oldCoach.setCity(newCoach.getCity());
         coachRepository.save(oldCoach);
