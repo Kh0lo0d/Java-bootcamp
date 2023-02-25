@@ -36,12 +36,18 @@ public class Coach_Controller {
         coachService.deleteCoach(id);
         return ResponseEntity.status(200).body("Coach deleted");
     }
-
+    //Coach have different orders(1:M)
+    @PutMapping("/{coach_id}/order/{order_id}")
+    public ResponseEntity OrdersAssignedtoCoach(@PathVariable Integer coach_id, @PathVariable Integer order_id){
+        coachService.OrdersAssignedtoCaoch(coach_id,order_id);
+        return ResponseEntity.status(200).body("Coach have many orders");
+    }
     //Coach have different Reviews(1:M)
     @PutMapping("/{coach_id}/review/{review_id}")
     public ResponseEntity ReviewsAssignedtoCoach(@PathVariable Integer coach_id, @PathVariable Integer review_id){
         coachService.ReviewsAssignedtoCaoch(coach_id,review_id);
         return ResponseEntity.status(200).body("Coach have many reviews");
     }
+
 
 }

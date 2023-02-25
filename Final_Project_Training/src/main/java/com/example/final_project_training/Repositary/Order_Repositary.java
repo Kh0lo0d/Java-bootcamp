@@ -14,4 +14,6 @@ public interface Order_Repositary extends JpaRepository<Order_table,Integer> {
 
     List<Order_table> findOrder_tableByCoachId(Integer id);
 
+    Order_table findOrter_tableByCustomerId(Integer id);
+
 }

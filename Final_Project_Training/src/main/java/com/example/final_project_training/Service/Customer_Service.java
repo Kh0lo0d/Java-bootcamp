@@ -50,33 +50,30 @@ public class Customer_Service {
         customerRepository.delete(customer);
     }
 
+
+    //Customer have different orders(1:M)
     public void OrdersAssignedtoCutomer(Integer customer_id, Integer order_id) {
         Customer customer = customerRepository.findCustomerById(customer_id);
-        Order_table orderTable = orderRepositary.findOrder_tableById(order_id);
-        if (customer == null || orderTable == null) {
-            throw new ApiException("customer Or order not Found");
-        } else {
-            orderTable.setCustomer(customer);
-            orderRepositary.save(orderTable);
-
+        Order_table order = orderRepositary.findOrder_tableById(order_id);
+        if (customer == null || order == null) {
+            throw new ApiException("Customer or Order not found");
         }
+        order.setCustomer(customer);
+        orderRepositary.save(order);
 
     }
-    //Get all customers whose orders are accepted
-    public List<Customer> getListCustomer(String status){
-        Order_table orderTable = orderRepositary.findOrder_tableByStatus(status);
 
-        if(orderTable != null && orderTable.getStatus()=="ACCEPT")
-        {
+    //2.Get Customers Details by Customer_id with order details.
+    public Customer getListCustomer(Integer id) {
+        Order_table orderTable = orderRepositary.findOrder_tableById(id);
+        Customer customer = customerRepository.findCustomerById(id);
+        if ( customer != null && customer.getId() == id && orderTable != null) {
 
-            List<Customer> customers = customerRepository.findAll();
-
-            // orderRepositary.save(orderTable);
-            return customers;
+            return customer;
 
         }
 
-        throw new ApiException("Incorrect Input");
+        throw new ApiException("Customer not found");
     }
 
 }

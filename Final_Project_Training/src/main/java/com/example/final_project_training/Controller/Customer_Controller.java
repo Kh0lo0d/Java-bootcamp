@@ -3,6 +3,7 @@ package com.example.final_project_training.Controller;
 import com.example.final_project_training.Model.Customer;
 import com.example.final_project_training.Service.Customer_Service;
 import com.example.final_project_training.Service.OrderServices;
+import com.example.final_project_training.Service.TraingSrevice_Services;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 public class Customer_Controller {
     private final Customer_Service customerService;
     private final OrderServices orderServices;
-
+private final TraingSrevice_Services traingSreviceServices;
     @GetMapping("/get")
     public ResponseEntity getCustomer(){
         List<Customer> customer = customerService.getCustomer();
@@ -38,13 +39,28 @@ public class Customer_Controller {
         customerService.deleteCustomer(id);
         return ResponseEntity.status(200).body("Customer deleted");
     }
-
+    //Customer have different orders(M:1)
     @PutMapping("/{customer_id}/order/{order_id}")
     public ResponseEntity OrdersAssignedtoCutomer(@PathVariable Integer customer_id,@PathVariable Integer order_id)
     {
         customerService.OrdersAssignedtoCutomer(customer_id,order_id);
 
         return ResponseEntity.status(200).body("CUSTOMER ASSIGN ORDER");
+
+    }
+
+    @PutMapping("/{customer_id}/trainingServecs/{train_id}")
+    public ResponseEntity assignCustomerToTrainingServices(@PathVariable Integer customer_id,@PathVariable Integer train_id)
+    {
+       traingSreviceServices.assignCustomerToTrainingServices(customer_id,train_id);
+        return ResponseEntity.status(200).body("CUSTOMER ASSIGN Training Services");
+
+    }
+    //2.Get Customers Details by Customer_id with order details.
+    @GetMapping("/listcustomer/{id}")
+    public ResponseEntity getListCustomer( @PathVariable Integer id){
+        Customer customers = customerService.getListCustomer(id);
+        return ResponseEntity.status(200).body(customers);
 
     }
 }

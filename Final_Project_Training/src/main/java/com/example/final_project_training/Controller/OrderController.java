@@ -41,11 +41,7 @@ public class OrderController {
         return ResponseEntity.status(200).body("Order  has been deleted successfully");
     }
 
-    @PutMapping("/{coach_id}/coachOrder/{order_id}")
-    public ResponseEntity assignCoachToOrderTable(@PathVariable Integer coach_id, @PathVariable Integer order_id){
-        orderServices.assignCoachToOrderTable(coach_id, order_id);
-        return ResponseEntity.status(200).body("COACH ASSIGN ORDER");
-    }
+
 
    @PutMapping("/{training_id}/order-train/{order_id}")
     public ResponseEntity assignTrainingServicesToOrder(@PathVariable Integer training_id,@PathVariable Integer order_id){
@@ -53,10 +49,33 @@ public class OrderController {
         return ResponseEntity.status(200).body("TRAINING SERVICES ASSIGN TO ORDER ");
     }
 
+    //1.Get Order Details by Order Id
     @GetMapping("/details/{coach_id}")
     public ResponseEntity OrderDetails(@PathVariable Integer coach_id){
         List<Order_table> order = orderServices.OrderDetails(coach_id);
         return ResponseEntity.status(200).body(order);
+    }
+    //3. Change order status from "Pending" to "Accept" and  Change order status from "Accept" to "Completed"
+    //3. Change order status from "Pending" to "REJECT"
+    @GetMapping("/status/{id}")
+    public ResponseEntity OrderStatus(@PathVariable Integer id){
+        Order_table orders = orderServices.OrderStatus(id);
+        return ResponseEntity.status(200).body(orders);
+
+    }
+    @GetMapping("get_total_Price/{customer_id}")// calculate total price of  order
+    public ResponseEntity Total_price(@PathVariable Integer customer_id)
+    {
+        Double total_price= orderServices.Total_price(customer_id);
+        return ResponseEntity.status(200).body("The total price of this order :"+total_price);
+    }
+
+    @GetMapping("/Get_Discount/{customer_id}")
+    public ResponseEntity discount_Price(@PathVariable Integer customer_id)
+    {
+        Double price_discount= orderServices.discount_Price(customer_id);
+        return ResponseEntity.status(200).body("The total price after discount  :"+price_discount);
+
     }
 
 

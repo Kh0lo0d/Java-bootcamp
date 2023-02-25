@@ -3,6 +3,7 @@ package com.example.final_project_training.Service;
 import com.example.final_project_training.Exception.ApiException;
 import com.example.final_project_training.Model.*;
 import com.example.final_project_training.Repositary.Coach_Repository;
+import com.example.final_project_training.Repositary.Order_Repositary;
 import com.example.final_project_training.Repositary.Reviews_Repository;
 import com.example.final_project_training.Repositary.Training_Repositary;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class Coach_Service {
     private final Coach_Repository coachRepository;
     private final Training_Repositary training_repositary;
     private final Reviews_Repository reviewsRepository;
+    private final Order_Repositary orderRepositary;
 
     public List<Coach> getCoach(){
         return coachRepository.findAll();
@@ -46,8 +48,19 @@ public class Coach_Service {
         }
         coachRepository.delete(Coach);
     }
+    //Coach have different orders(1:M)
+    public void OrdersAssignedtoCaoch(Integer coach_id, Integer order_id){
+        Coach coach = coachRepository.findCoachById(coach_id);
+        //Order_table order = (Order_table) orderRepositary.findOrder_tableById(order_id);
+        Order_table order = orderRepositary.findOrder_tableById(order_id);
+        if(coach == null || order == null){
+            throw new ApiException("Coach or Order not found");
+        }
+        order.setCoach(coach);
+        orderRepositary.save(order);
 
-
+    }
+    //Coach have different Reviews(1:M)
     public void ReviewsAssignedtoCaoch(Integer coach_id, Integer review_id){
         Coach coach = coachRepository.findCoachById(coach_id);
         Reviews review = reviewsRepository.findReviewsById(review_id);

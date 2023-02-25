@@ -52,6 +52,9 @@ public class Training_Services {
     @JsonIgnore
     private List<Order_table> orderTables;
 
-
+    @ManyToOne
+    @JoinColumn(name ="customer_id",referencedColumnName ="id" )
+    @JsonIgnore
+    private Customer customer;
 
 }

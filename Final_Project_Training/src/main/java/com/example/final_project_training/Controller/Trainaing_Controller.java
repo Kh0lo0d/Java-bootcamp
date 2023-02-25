@@ -1,5 +1,6 @@
 package com.example.final_project_training.Controller;
 
+import com.example.final_project_training.Model.Coach;
 import com.example.final_project_training.Model.Training_Services;
 import com.example.final_project_training.Service.OrderServices;
 import com.example.final_project_training.Service.TraingSrevice_Services;
@@ -7,6 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +50,12 @@ public class Trainaing_Controller {
     public ResponseEntity assignCoachToTrainingServices(@PathVariable Integer coach_id, @PathVariable Integer training_id){
         traingSreviceServices.assignCoachToTrainingServices(coach_id, training_id);
         return ResponseEntity.status(200).body("COACH ASSIGN TRAINING SERVICES");
+    }
+
+    @GetMapping("/getCoach_ByCatogary/{tr_id}/{customer_id}")//This endpoint for display coaches according category
+    public ResponseEntity DisplayCoatches_ByCatogary(@PathVariable Integer tr_id,@PathVariable Integer customer_id)
+    {List<Coach> coaches=traingSreviceServices.DisplayCoatches_ByCatogary(tr_id,customer_id);
+        return ResponseEntity.status(200).body(coaches);
     }
 
 

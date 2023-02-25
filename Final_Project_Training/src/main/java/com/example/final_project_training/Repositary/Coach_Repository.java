@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface Coach_Repository extends JpaRepository<Coach,Integer> {
     Coach findCoachById(Integer id);
+    List<Coach>findCoachByCity(String city);
 
 
 
