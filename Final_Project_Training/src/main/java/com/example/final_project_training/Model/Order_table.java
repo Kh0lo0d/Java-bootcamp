@@ -51,9 +51,8 @@ public class Order_table {
 
 
 
-    @ManyToMany(mappedBy = "orderTables")
-    private List<Training_Services> training_services;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "orderTable")
+    private List<Training_Services>training_services;
 
 
 

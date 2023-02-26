@@ -31,9 +31,6 @@ public class Training_Services {
              message="Wrong category ,category should be Online or In_Home or Out_Home or Plan_Training only")
     private String category;
 
-    @NotEmpty(message="category should be not empty")
-     private String description;
-
     @NotEmpty(message="time_Period should be not empty")
      @Pattern(regexp="^(Weekly|Monthly|Daily)$",
              message="Wrong time_Period ,time_Period should be Weekly or Monthly or Daily  only")
@@ -48,14 +45,11 @@ public class Training_Services {
     private Coach coach;
 
 
-    @ManyToMany
-    @JsonIgnore
-    private List<Order_table> orderTables;
+@ManyToOne
+@JoinColumn(name ="order_id",referencedColumnName ="id" )
+@JsonIgnore
+    private Order_table orderTable;
 
 
-
-    @ManyToMany
-    @JsonIgnore
-    private List<Customer> customers;
 
 }

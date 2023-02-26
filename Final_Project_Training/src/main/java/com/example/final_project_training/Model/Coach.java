@@ -37,6 +37,8 @@ public class Coach {
     @Column(columnDefinition = "varchar(30) not null")
     private String city;
 
+    @Column(columnDefinition = "varchar(100) not null")
+    private String address;
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "coach")

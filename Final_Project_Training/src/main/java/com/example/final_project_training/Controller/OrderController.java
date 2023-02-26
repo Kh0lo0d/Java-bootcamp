@@ -63,17 +63,12 @@ public class OrderController {
         return ResponseEntity.status(200).body(orders);
 
     }
-    @GetMapping("get_total_Price/{customer_id}/{order_id}")// calculate total price of  order
-    public ResponseEntity Total_price(@PathVariable Integer customer_id,@PathVariable Integer order_id)
-    {
-        Double total_price= orderServices.Total_price(customer_id,order_id);
-        return ResponseEntity.status(200).body("The total price of this order :"+total_price);
-    }
 
-    @GetMapping("/Get_Discount/{customer_id}/{order_id}")
-    public ResponseEntity discount_Price(@PathVariable Integer customer_id,@PathVariable Integer order_id)
+
+    @GetMapping("/Get_Discount/{customer_id}")
+    public ResponseEntity discount_Price(@PathVariable Integer customer_id)
     {
-        Double price_discount= orderServices.discount_Price(customer_id,order_id);
+        Double price_discount= orderServices.discount_Price(customer_id);
         return ResponseEntity.status(200).body("The total price after discount  :"+price_discount);
 
     }

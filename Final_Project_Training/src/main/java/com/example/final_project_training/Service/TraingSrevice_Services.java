@@ -72,22 +72,6 @@ public class TraingSrevice_Services {
 
     }
 
-    public void assignCustomerToTrainingServices(Integer customer_id,Integer training_id)
-    {
-        Customer customer=customerRepository.findCustomerById(customer_id);
-        Training_Services training_services=training_repositary.findTraining_ServicesById(training_id);
-
-        if (customer == null || training_services == null) {
-            throw new ApiException("customer Or training service not Found");
-        }
-        else{
-            training_services.getCustomers().add(customer);
-            customer.getTraining_services().add(training_services);
-            training_repositary.save(training_services);
-            customerRepository.save(customer);
-        }
-
-    }
 
     //This endpoint for display coaches according category
     public List<Coach> DisplayCoatches_ByCatogary(Integer tr_id, Integer customer_id) {

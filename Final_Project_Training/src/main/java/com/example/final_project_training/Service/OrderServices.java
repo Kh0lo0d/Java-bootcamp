@@ -56,20 +56,29 @@ private final Customer_Repository customerRepository;
     }
 
 
+    public void OrdersAssignedtoCaoch(Integer coach_id, Integer order_id){
+        Coach coach = coachRepository.findCoachById(coach_id);
+        //Order_table order = (Order_table) orderRepositary.findOrder_tableById(order_id);
+        Order_table order = orderRepositary.findOrder_tableById(order_id);
+        if(coach == null || order == null){
+            throw new ApiException("Coach or Order not found");
+        }
+        order.setCoach(coach);
+        orderRepositary.save(order);
 
+    }
 
 
     public void assignTrainingServicesToOrder(Integer training_id,Integer order_id){
 
-        Training_Services training_services=training_repositary.findTraining_ServicesById(training_id);
         Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
-        if(training_services ==null || orderTable==null){
+        Training_Services trainingServices=training_repositary.findTraining_ServicesById(training_id);
+        if(orderTable ==null || trainingServices==null){
             throw new ApiException("Training Services Or Order not found");}
         else{
-               training_services.getOrderTables().add(orderTable);
-          orderTable.getTraining_services().add(training_services);
-          training_repositary.save(training_services);
-           orderRepositary.save(orderTable);
+            trainingServices.setOrderTable(orderTable);
+            training_repositary.save(trainingServices);
+
 
         }
     }
@@ -105,7 +114,7 @@ private final Customer_Repository customerRepository;
         }
         throw new ApiException("Coach have another Customer");
     }
-    public Double Total_price(Integer customer_id,Integer order_id)//This endpoint to calculate total price of  order
+   /* public Double Total_price(Integer customer_id,Integer order_id)//This endpoint to calculate total price of  order
     {
       Customer customer=customerRepository.findCustomerById(customer_id);
       Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
@@ -124,36 +133,33 @@ private final Customer_Repository customerRepository;
 orderTable.setTotal_price(total_price);
       orderRepositary.save(orderTable);
       return total_price;
-    }
+    }*/
 
     //If the customer orders more than one training service, the customer gets a 20% discount on each order
-    public Double discount_Price(Integer customer_id,Integer order_id)
-    {
-        Customer customer=customerRepository.findCustomerById(customer_id);
-        Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
+    public Double discount_Price(Integer customer_id) {
+        Customer customer = customerRepository.findCustomerById(customer_id);
+        List<Order_table> orderTable = customer.getOrder_tables();
 
 
-        if(customer == null){
-            throw new ApiException("customer not found");}
-        List<Training_Services>training_services=customer.getTraining_services();
-        double price;
-        double total_price=0;
-            if(training_services.size()>1)
-            {
-                for(int i=0;i<training_services.size();i++)
-                {
+        if (customer == null) {
+            throw new ApiException("customer not found");
+        }
+        double price, total_price = 0;
+        if (orderTable.size() > 1) {
+            for (int i = 0; i < orderTable.size(); i++) {
 
-                    price=training_services.get(i).getPrice()*0.2;
-                    total_price=total_price+price;
-
-                }
+                price = orderTable.get(i).getTotal_price();
+                total_price = total_price + price;
+            }
 
             }
-        orderTable.setTotal_price(total_price);
-        orderRepositary.save(orderTable);
-        return total_price;
+            if(orderTable.size()==1)
 
-    }
+                throw new ApiException("You can not get a discount");
+Double p=total_price;
+customer.setOrder_tables(orderTable);
+customerRepository.save(customer);
+       return p*0.2; }
 
 
 

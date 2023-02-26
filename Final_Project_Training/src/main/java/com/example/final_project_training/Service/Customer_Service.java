@@ -1,13 +1,18 @@
 package com.example.final_project_training.Service;
 
 import com.example.final_project_training.Exception.ApiException;
+import com.example.final_project_training.Model.Coach;
 import com.example.final_project_training.Model.Customer;
 import com.example.final_project_training.Model.Order_table;
+import com.example.final_project_training.Model.Training_Services;
+import com.example.final_project_training.Repositary.Coach_Repository;
 import com.example.final_project_training.Repositary.Customer_Repository;
 import com.example.final_project_training.Repositary.Order_Repositary;
+import com.example.final_project_training.Repositary.Training_Repositary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +20,8 @@ import java.util.List;
 public class Customer_Service {
     private final Customer_Repository customerRepository;
     private final Order_Repositary orderRepositary;
+    private  final Training_Repositary training_repositary;
+    private final Coach_Repository coachRepository;
 
     public List<Customer> getCustomer() {
         return customerRepository.findAll();
@@ -76,4 +83,46 @@ public class Customer_Service {
         throw new ApiException("Customer not found");
     }
 
-}
+
+    public List<Coach> Display_CoachByCatogary(Integer customer_id,Integer tr_id)
+    {
+        Customer customer=customerRepository.findCustomerById(customer_id);
+
+        Training_Services trainingServices=training_repositary.findTraining_ServicesById(tr_id);
+
+        if (trainingServices == null || customer == null) {
+            throw new ApiException("customer Or training services not Found");
+        }
+        String catogary = trainingServices.getCategory();
+        String city_customer = customer.getCity();
+        List<Coach> coaches=new ArrayList<>();
+        if (catogary.equals("In_Home") || catogary.equals("Out_Home")){
+            coaches = coachRepository.findCoachByCity(city_customer);
+
+            return coaches;}
+
+        else
+            return coachRepository.findAll();
+
+        }
+
+
+    public List<Coach> Display_CoachByGender(Integer customer_id)
+    {
+        Customer customer=customerRepository.findCustomerById(customer_id);
+
+
+        if ( customer == null) {
+            throw new ApiException("customer  not Found");
+        }
+       String gender= customer.getGender();
+        if (gender.equals("Female"))
+            return coachRepository.findCoachByGender("Female");
+
+
+        else
+            return coachRepository.findCoachByGender("Male");
+
+    }
+    }
+

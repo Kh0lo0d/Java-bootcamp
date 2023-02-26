@@ -1,5 +1,6 @@
 package com.example.final_project_training.Controller;
 
+import com.example.final_project_training.Model.Coach;
 import com.example.final_project_training.Model.Customer;
 import com.example.final_project_training.Service.Customer_Service;
 import com.example.final_project_training.Service.OrderServices;
@@ -49,18 +50,24 @@ private final TraingSrevice_Services traingSreviceServices;
 
     }
 
-    @PutMapping("/{customer_id}/trainingServecs/{train_id}")
-    public ResponseEntity assignCustomerToTrainingServices(@PathVariable Integer customer_id,@PathVariable Integer train_id)
-    {
-       traingSreviceServices.assignCustomerToTrainingServices(customer_id,train_id);
-        return ResponseEntity.status(200).body("CUSTOMER ASSIGN Training Services");
 
-    }
     //2.Get Customers Details by Customer_id with order details.
     @GetMapping("/listcustomer/{id}")
     public ResponseEntity getListCustomer( @PathVariable Integer id){
         Customer customers = customerService.getListCustomer(id);
         return ResponseEntity.status(200).body(customers);
 
+    }
+
+    @GetMapping("/display_coaches/{customer_id}/{tr_id}")//This endpoint for display coaches according category
+    public ResponseEntity DisplayCoatches_ByCatogary(@PathVariable Integer customer_id,@PathVariable Integer tr_id)
+    {List<Coach> coaches=customerService.Display_CoachByCatogary(customer_id,tr_id);
+        return ResponseEntity.status(200).body(coaches);
+    }
+
+    @GetMapping("/display_coaches_byGender/{customer_id}")//This endpoint for display coaches according gender
+    public ResponseEntity Display_CoachByGender(@PathVariable Integer customer_id)
+    {List<Coach> coaches=customerService.Display_CoachByGender(customer_id);
+        return ResponseEntity.status(200).body(coaches);
     }
 }

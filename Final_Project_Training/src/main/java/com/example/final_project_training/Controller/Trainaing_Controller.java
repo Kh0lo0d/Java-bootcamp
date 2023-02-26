@@ -52,11 +52,7 @@ public class Trainaing_Controller {
         return ResponseEntity.status(200).body("COACH ASSIGN TRAINING SERVICES");
     }
 
-    @GetMapping("/getCoach_ByCatogary/{tr_id}/{customer_id}")//This endpoint for display coaches according category
-    public ResponseEntity DisplayCoatches_ByCatogary(@PathVariable Integer tr_id,@PathVariable Integer customer_id)
-    {List<Coach> coaches=traingSreviceServices.DisplayCoatches_ByCatogary(tr_id,customer_id);
-        return ResponseEntity.status(200).body(coaches);
-    }
+
 
 
 }

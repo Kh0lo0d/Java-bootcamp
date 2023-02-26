@@ -35,7 +35,7 @@ public class Customer {
     private String health_problem;
     @Column(columnDefinition = "varchar(30) not null")
     private String city;
-    @Column(columnDefinition = "varchar(30) not null")
+    @Column(columnDefinition = "varchar(100) not null")
     private String address;
 
     @NotEmpty(message="email should be not empty")
@@ -54,6 +54,5 @@ public class Customer {
     private List<Order_table> order_tables;
 
 
-    @ManyToMany(mappedBy = "customers")
-    private List<Training_Services> training_services;
+
 }
