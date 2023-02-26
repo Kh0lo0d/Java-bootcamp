@@ -114,28 +114,9 @@ private final Customer_Repository customerRepository;
         }
         throw new ApiException("Coach have another Customer");
     }
-   /* public Double Total_price(Integer customer_id,Integer order_id)//This endpoint to calculate total price of  order
-    {
-      Customer customer=customerRepository.findCustomerById(customer_id);
-      Order_table orderTable=orderRepositary.findOrder_tableById(order_id);
-        if(customer == null){
-            throw new ApiException("Not order of  customer");}
-      List<Training_Services>training_services=customer.getTraining_services();
-      double price;
-      double total_price=0;
-      for(int i=0;i<training_services.size();i++)
-      {
 
-          price=training_services.get(i).getPrice();
-          total_price=total_price+price;
 
-      }
-orderTable.setTotal_price(total_price);
-      orderRepositary.save(orderTable);
-      return total_price;
-    }*/
-
-    //If the customer orders more than one training service, the customer gets a 20% discount on each order
+    //If the customer orders more than one  the customer gets a 20% discount
     public Double discount_Price(Integer customer_id) {
         Customer customer = customerRepository.findCustomerById(customer_id);
         List<Order_table> orderTable = customer.getOrder_tables();
