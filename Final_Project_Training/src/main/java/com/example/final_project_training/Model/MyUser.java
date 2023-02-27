@@ -18,6 +18,6 @@ public class MyUser {
     //@Column(columnDefinition = "varchar(6) not null unique")
     private String password;
 
-    @Column(columnDefinition = "varchar(30) not null check (role= 'User' or role='Admin')")
+    @Column(columnDefinition = "varchar(30) not null check (role= 'Customer' or role= 'Coach' or role='Admin')")
     private String role;
 }

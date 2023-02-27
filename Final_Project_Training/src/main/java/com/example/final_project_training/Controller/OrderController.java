@@ -55,11 +55,24 @@ public class OrderController {
         List<Order_table> order = orderServices.OrderDetails(coach_id);
         return ResponseEntity.status(200).body(order);
     }
-    //3. Change order status from "Pending" to "Accept" and  Change order status from "Accept" to "Completed"
-    //3. Change order status from "Pending" to "REJECT"
-    @GetMapping("/status/{id}")
-    public ResponseEntity OrderStatus(@PathVariable Integer id){
-        Order_table orders = orderServices.OrderStatus(id);
+    //A. Change order status from "Pending" to "Accept and by default 'IN PROGRESS'
+
+    @GetMapping("/accept/{id}")
+    public ResponseEntity AcceptStatus(@PathVariable Integer id){
+        Order_table orders = orderServices.AcceptStatus(id);
+        return ResponseEntity.status(200).body(orders);
+
+    }
+    //B.Change order status from "Accept" to "Completed"
+    @GetMapping("/complete/{id}")
+    public ResponseEntity CompletedStatus(@PathVariable Integer id){
+        Order_table orders = orderServices.CompletedStatus(id);
+        return ResponseEntity.status(200).body(orders);}
+
+    //D. Change order status from "Pending" to "REJECT"
+    @GetMapping("/reject/{id}")
+    public ResponseEntity RejectStatus(@PathVariable Integer id){
+        Order_table orders = orderServices.RejectStatus(id);
         return ResponseEntity.status(200).body(orders);
 
     }

@@ -94,26 +94,36 @@ private final Customer_Repository customerRepository;
         return orderRepositary.findOrder_tableByCoachId(coach_id);
     }
 
-    //3. Change order status from "Pending" to "Accept" and  Change order status from "Accept" to "Completed"
-    //3. Change order status from "Pending" to "REJECT"
+    //A. Change order status from "Pending" to "Accept and by default 'IN PROGRESS'
     //PENDING|ACCEPT|REJECT|COMPLETE
-    public Order_table OrderStatus(Integer id){
+    public Order_table AcceptStatus(Integer id){
         Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
-        if(orterTable != null && orterTable.getStatus().equals("PENDING") && orterTable.getStart_Date() == null && orterTable.getEnd_Date() == null){
-            orterTable.setStatus("ACCEPT");
+        if(orterTable != null && orterTable.getStatus().equals("PENDING")){
+            orterTable.setStatus("IN PROGRESS");
             orderRepositary.save(orterTable);
             return orterTable;
-        }else if(orterTable != null && orterTable.getStatus().equals("ACCEPT")){
+        }
+        throw new ApiException("Order Status is not 'IN PROGRESS' ");}
+    //B.Change order status from "Accept" to "Completed"
+    public Order_table CompletedStatus(Integer id){
+        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
+        if(orterTable != null && orterTable.getStatus().equals("ACCEPT")){
             orterTable.setStatus("COMPLETE");
             orderRepositary.save(orterTable);
             return orterTable;
-        }else if(orterTable != null && orterTable.getStatus().equals("PENDING") && orterTable.getStart_Date() != null && orterTable.getEnd_Date() != null){
+        }
+        throw new ApiException("Order Status is not 'ACCEPTED' ");}
+
+    //D. Change order status from "Pending" to "REJECT"
+    //PENDING|ACCEPT|REJECT|COMPLETE
+    public Order_table RejectStatus(Integer id){
+        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
+        if(orterTable != null && orterTable.getStatus().equals("PENDING")){
             orterTable.setStatus("REJECT");
             orderRepositary.save(orterTable);
             return orterTable;
         }
-        throw new ApiException("Coach have another Customer");
-    }
+        throw new ApiException("Order Status is not 'IN PENDING' ");}
 
 
     //If the customer orders more than one  the customer gets a 20% discount

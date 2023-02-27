@@ -35,8 +35,8 @@ public class Order_table {
     private Double total_price;
 
     @NotEmpty(message="status should be not empty")
-    @Pattern(regexp="^(PENDING|ACCEPT|REJECT|COMPLETE)$",
-            message="Wrong status ,status should be PENDING or ACCEPT or REJECT or COMPLETE only")
+    @Pattern(regexp="^(PENDING|ACCEPT|IN PROGRESS|REJECT|COMPLETE)$",
+            message="Wrong status ,status should be PENDING or ACCEPT or IN PROGRESS or REJECT or COMPLETE only")
     private String status;
 
     @ManyToOne
