@@ -2,10 +2,9 @@ package com.example.final_project_training.Service;
 
 import com.example.final_project_training.Exception.ApiException;
 import com.example.final_project_training.Model.*;
-import com.example.final_project_training.Repositary.Coach_Repository;
-import com.example.final_project_training.Repositary.Order_Repositary;
-import com.example.final_project_training.Repositary.Reviews_Repository;
-import com.example.final_project_training.Repositary.Training_Repositary;
+import com.example.final_project_training.Repositary.*;
+import com.example.final_project_training.dto.MyUserCoachDTO;
+import com.example.final_project_training.dto.UserCustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,8 @@ public class Coach_Service {
     private final Training_Repositary training_repositary;
     private final Reviews_Repository reviewsRepository;
     private final Order_Repositary orderRepositary;
+
+    private final MyUser_Repository myUserRepository;
 
     public List<Coach> getCoach(){
         return coachRepository.findAll();
@@ -70,6 +71,25 @@ public class Coach_Service {
         review.setCoach(coach);
         reviewsRepository.save(review);
     }
+
+
+
+
+public void addUser_Coach(MyUserCoachDTO myUserCoachDTO){
+        MyUser myUser=myUserRepository.findMyUserById(myUserCoachDTO.getCoach_id());
+        Coach coach=new Coach(null,myUserCoachDTO.getName(),myUserCoachDTO.getPhone_number(),myUserCoachDTO.getLicense(),
+                myUserCoachDTO.getYear_of_experience(),myUserCoachDTO.getGender(),myUserCoachDTO.getCity(),
+                myUserCoachDTO.getAddress(),null,null,null,myUser);
+        coachRepository.save(coach);
+}
+    public List<MyUser> AllCoachbyID(Integer id,MyUserCoachDTO myUserCoachDTO)
+    {
+        MyUser  myUser=myUserRepository.findMyUserById(myUserCoachDTO.getCoach_id());
+        if(myUser==null){
+            throw new ApiException("my User not found");}
+        return myUserRepository.findAll();
+    }
+
 
 
 

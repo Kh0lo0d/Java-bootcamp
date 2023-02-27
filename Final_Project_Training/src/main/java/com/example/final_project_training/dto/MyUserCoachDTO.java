@@ -1,24 +1,17 @@
-package com.example.final_project_training.Model;
+package com.example.final_project_training.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Coach {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class MyUserCoachDTO {
+    private Integer coach_id;
     @Column(columnDefinition = "varchar(30) not null")
     private String name;
     @Column(columnDefinition = "varchar(30) not null")
@@ -40,27 +33,4 @@ public class Coach {
 
     @Column(columnDefinition = "varchar(100) not null")
     private String address;
-
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "coach")
-    private List<Training_Services> training_services;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "coach")
-    private List<Order_table> orderTables;
-
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coach")
-    private List<Reviews> reviews;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    private MyUser myUser;
-
-
-   /* @OneToOne
-    @MapsId
-    @JsonIgnore
-    private MyUser myUser;*/
-
-
 }

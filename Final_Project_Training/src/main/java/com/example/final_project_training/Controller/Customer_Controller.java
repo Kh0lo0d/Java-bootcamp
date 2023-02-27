@@ -2,9 +2,11 @@ package com.example.final_project_training.Controller;
 
 import com.example.final_project_training.Model.Coach;
 import com.example.final_project_training.Model.Customer;
+import com.example.final_project_training.Model.MyUser;
 import com.example.final_project_training.Service.Customer_Service;
 import com.example.final_project_training.Service.OrderServices;
 import com.example.final_project_training.Service.TraingSrevice_Services;
+import com.example.final_project_training.dto.UserCustomerDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -75,5 +77,21 @@ private final TraingSrevice_Services traingSreviceServices;
     public ResponseEntity Display_CoachByGender(@PathVariable Integer customer_id)
     {List<Coach> coaches=customerService.Display_CoachByGender(customer_id);
         return ResponseEntity.status(200).body(coaches);
+    }
+
+
+    @PostMapping("/addUserCustomer")
+    public ResponseEntity addUser_Customer(@Valid @RequestBody UserCustomerDTO userCustomerDTO) {
+        customerService.addUser_Customer(userCustomerDTO);
+        return ResponseEntity.status(200).body("User Customer  added");
+    }
+
+    @GetMapping("/getAlluserCustomers/{id}")
+    public  ResponseEntity AllCustomersbyID(@PathVariable Integer id,@Valid @RequestBody UserCustomerDTO userCustomerDTO)
+    {
+       List<MyUser> myUsers=customerService.AllCustomersbyID(id,userCustomerDTO);
+        return ResponseEntity.status(200).body(myUsers);
+
+
     }
 }

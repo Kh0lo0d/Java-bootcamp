@@ -1,7 +1,10 @@
 package com.example.final_project_training.Controller;
 
 import com.example.final_project_training.Model.Coach;
+import com.example.final_project_training.Model.MyUser;
 import com.example.final_project_training.Service.Coach_Service;
+import com.example.final_project_training.dto.MyUserCoachDTO;
+import com.example.final_project_training.dto.UserCustomerDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +52,18 @@ public class Coach_Controller {
         return ResponseEntity.status(200).body("Coach have many reviews");
     }
 
+    @PostMapping("/addUserCoach")
+    public ResponseEntity addUser_Coach(@Valid @RequestBody MyUserCoachDTO myUserCoachDTO) {
+        coachService.addUser_Coach(myUserCoachDTO);
+        return ResponseEntity.status(200).body("User Coach  added");
+    }
 
+    @GetMapping("/getAllUserCoach/{id}")
+    public  ResponseEntity AllCoachbyID(@PathVariable Integer id,@Valid @RequestBody  MyUserCoachDTO myUserCoachDTO)
+    {
+        List<MyUser> myUsers=coachService.AllCoachbyID(id,myUserCoachDTO);
+        return ResponseEntity.status(200).body(myUsers);
+
+
+    }
 }

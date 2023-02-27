@@ -1,14 +1,10 @@
 package com.example.final_project_training.Service;
 
 import com.example.final_project_training.Exception.ApiException;
-import com.example.final_project_training.Model.Coach;
-import com.example.final_project_training.Model.Customer;
-import com.example.final_project_training.Model.Order_table;
-import com.example.final_project_training.Model.Training_Services;
-import com.example.final_project_training.Repositary.Coach_Repository;
-import com.example.final_project_training.Repositary.Customer_Repository;
-import com.example.final_project_training.Repositary.Order_Repositary;
-import com.example.final_project_training.Repositary.Training_Repositary;
+import com.example.final_project_training.Model.*;
+import com.example.final_project_training.Repositary.*;
+
+import com.example.final_project_training.dto.UserCustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +18,8 @@ public class Customer_Service {
     private final Order_Repositary orderRepositary;
     private  final Training_Repositary training_repositary;
     private final Coach_Repository coachRepository;
+
+    private final MyUser_Repository myUserRepository;
 
     public List<Customer> getCustomer() {
         return customerRepository.findAll();
@@ -143,6 +141,31 @@ public class Customer_Service {
         else
             return coachRepository.findCoachByGender("Male");
 
+    }
+
+    public void addUser_Customer(UserCustomerDTO userCustomerDTO){
+        MyUser myUser=myUserRepository.findMyUserById(userCustomerDTO.getUser_id());
+        if(myUser==null)
+            throw new ApiException("my User not found");
+
+        Customer customer= new Customer(null, userCustomerDTO.getName(), userCustomerDTO.getPhone_number(), userCustomerDTO.getAge(),
+                userCustomerDTO.getLength(),userCustomerDTO.getWeight(),userCustomerDTO.getHealth_problem(),
+                userCustomerDTO.getCity(), userCustomerDTO.getAddress(), userCustomerDTO.getEmail(),
+                userCustomerDTO.getGender(),null,myUser );
+        customerRepository.save(customer);
+
+
+
+
+    }
+
+
+    public List<MyUser> AllCustomersbyID(Integer id,UserCustomerDTO userCustomerDTO)
+    {
+        MyUser  myUser=myUserRepository.findMyUserById(userCustomerDTO.getUser_id());
+        if(myUser==null){
+            throw new ApiException("my User not found");}
+        return myUserRepository.findAll();
     }
     }
 

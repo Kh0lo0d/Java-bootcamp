@@ -1,7 +1,6 @@
-package com.example.final_project_training.Model;
+package com.example.final_project_training.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -9,18 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class UserCustomerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer user_id;
 
     @Column(columnDefinition = "varchar(30) not null")
     private String name;
@@ -48,19 +41,4 @@ public class Customer {
     @Pattern(regexp="^(Female|Male)$",
             message="Wrong gender ,gender should be Female or Male only")
     private String gender;
-
-
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-    private List<Order_table> order_tables;
-
-    /*@OneToOne
-    @MapsId
-    @JsonIgnore
-    private MyUser myUser;*/
-
-  @OneToOne(cascade = CascadeType.ALL)
-@JsonIgnore
-    private MyUser myUser;
-
 }

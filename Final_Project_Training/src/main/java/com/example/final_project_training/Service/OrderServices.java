@@ -96,8 +96,8 @@ private final Customer_Repository customerRepository;
 
     //A. Change order status from "Pending" to "Accept and by default 'IN PROGRESS'
     //PENDING|ACCEPT|REJECT|COMPLETE
-    public Order_table AcceptStatus(Integer id){
-        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
+    public Order_table AcceptStatus(Integer customer_id){
+        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(customer_id);
         if(orterTable != null && orterTable.getStatus().equals("PENDING")){
             orterTable.setStatus("IN PROGRESS");
             orderRepositary.save(orterTable);
@@ -105,8 +105,8 @@ private final Customer_Repository customerRepository;
         }
         throw new ApiException("Order Status is not 'IN PROGRESS' ");}
     //B.Change order status from "Accept" to "Completed"
-    public Order_table CompletedStatus(Integer id){
-        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
+    public Order_table CompletedStatus(Integer customer_id){
+        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(customer_id);
         if(orterTable != null && orterTable.getStatus().equals("ACCEPT")){
             orterTable.setStatus("COMPLETE");
             orderRepositary.save(orterTable);
@@ -116,8 +116,8 @@ private final Customer_Repository customerRepository;
 
     //D. Change order status from "Pending" to "REJECT"
     //PENDING|ACCEPT|REJECT|COMPLETE
-    public Order_table RejectStatus(Integer id){
-        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(id);
+    public Order_table RejectStatus(Integer customer_id){
+        Order_table orterTable = orderRepositary.findOrter_tableByCustomerId(customer_id);
         if(orterTable != null && orterTable.getStatus().equals("PENDING")){
             orterTable.setStatus("REJECT");
             orderRepositary.save(orterTable);

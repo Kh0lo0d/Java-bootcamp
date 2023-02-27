@@ -38,4 +38,6 @@ public class MyUser_Controller {
         myUserService.deleteUser(id);
         return ResponseEntity.status(200).body("User deleted!");
     }
+
+
 }
