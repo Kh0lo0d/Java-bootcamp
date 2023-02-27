@@ -65,6 +65,12 @@ private final TraingSrevice_Services traingSreviceServices;
         return ResponseEntity.status(200).body(coaches);
     }
 
+    @GetMapping("/cotches_By_Gender/{customer_id}/{gender}")//This endpoint for display coaches according gender
+    public ResponseEntity SearchCoachesBY_Gender(@PathVariable Integer customer_id,@PathVariable String gender)
+    {List<Coach> coaches=customerService.SearchCoachesBY_Gender(customer_id,gender);
+        return ResponseEntity.status(200).body(coaches);
+    }
+
     @GetMapping("/display_coaches_byGender/{customer_id}")//This endpoint for display coaches according gender
     public ResponseEntity Display_CoachByGender(@PathVariable Integer customer_id)
     {List<Coach> coaches=customerService.Display_CoachByGender(customer_id);

@@ -107,6 +107,26 @@ public class Customer_Service {
         }
 
 
+
+
+    public List<Coach> SearchCoachesBY_Gender(Integer customer_id,String gender)
+    {
+        Customer customer=customerRepository.findCustomerById(customer_id);
+        List<Coach>coaches=coachRepository.findCoachByGender(gender);
+
+
+        if ( customer == null) {
+            throw new ApiException("customer  not Found");
+        }
+
+        if (gender.equals("Female"))
+            return coachRepository.findCoachByGender("Female");
+
+
+        else
+            return coachRepository.findCoachByGender("Male");
+
+    }
     public List<Coach> Display_CoachByGender(Integer customer_id)
     {
         Customer customer=customerRepository.findCustomerById(customer_id);
@@ -115,7 +135,7 @@ public class Customer_Service {
         if ( customer == null) {
             throw new ApiException("customer  not Found");
         }
-       String gender= customer.getGender();
+        String gender= customer.getGender();
         if (gender.equals("Female"))
             return coachRepository.findCoachByGender("Female");
 
