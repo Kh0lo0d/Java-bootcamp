@@ -82,7 +82,7 @@ public class OrderController {
     public ResponseEntity discount_Price(@PathVariable Integer customer_id)
     {
         Double price_discount= orderServices.discount_Price(customer_id);
-        return ResponseEntity.status(200).body("The total price after discount  :"+price_discount);
+        return ResponseEntity.status(200).body("The total price after  discount  :"+price_discount);
 
     }
 

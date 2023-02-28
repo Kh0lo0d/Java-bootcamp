@@ -150,7 +150,8 @@ private final Customer_Repository customerRepository;
 Double p=total_price;
 customer.setOrder_tables(orderTable);
 customerRepository.save(customer);
-       return p*0.2; }
+
+       return p-=p*0.2; }
 
 
 
