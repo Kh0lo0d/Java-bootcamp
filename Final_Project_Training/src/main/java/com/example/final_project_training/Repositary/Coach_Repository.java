@@ -1,6 +1,7 @@
 package com.example.final_project_training.Repositary;
 
 import com.example.final_project_training.Model.Coach;
+import com.example.final_project_training.Model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ public interface Coach_Repository extends JpaRepository<Coach,Integer> {
 
     List<Coach>findCoachByGender(String gender);
 
+    List<Coach> findAllByMyUser(MyUser myUser);
 
 
 

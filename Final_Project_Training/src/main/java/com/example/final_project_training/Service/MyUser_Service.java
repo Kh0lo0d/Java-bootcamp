@@ -6,6 +6,7 @@ import com.example.final_project_training.Model.MyUser;
 import com.example.final_project_training.Repositary.Customer_Repository;
 import com.example.final_project_training.Repositary.MyUser_Repository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +45,12 @@ public class MyUser_Service {
         myUserRepository.delete(user);
     }
 
-
+    public void register(MyUser myUser){
+        myUser.setRole("Admin");
+        String hashedPassword=new BCryptPasswordEncoder().encode(myUser.getPassword());
+        myUser.setPassword(hashedPassword);
+        myUserRepository.save(myUser);
+    }
 
 
 

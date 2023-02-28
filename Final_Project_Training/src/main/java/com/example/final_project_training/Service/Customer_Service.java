@@ -148,10 +148,11 @@ public class Customer_Service {
         if(myUser==null)
             throw new ApiException("my User not found");
 
-        Customer customer= new Customer(null, userCustomerDTO.getName(), userCustomerDTO.getPhone_number(), userCustomerDTO.getAge(),
+        Customer customer= new Customer(null, userCustomerDTO.getName(),userCustomerDTO.getGender(), userCustomerDTO.getPhone_number(),
+                userCustomerDTO.getEmail(),userCustomerDTO.getAge(),
                 userCustomerDTO.getLength(),userCustomerDTO.getWeight(),userCustomerDTO.getHealth_problem(),
-                userCustomerDTO.getCity(), userCustomerDTO.getAddress(), userCustomerDTO.getEmail(),
-                userCustomerDTO.getGender(),null,myUser );
+                userCustomerDTO.getCity(), userCustomerDTO.getAddress(),
+                null,myUser );
         customerRepository.save(customer);
 
 

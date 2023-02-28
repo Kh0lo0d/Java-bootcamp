@@ -39,5 +39,15 @@ public class MyUser_Controller {
         return ResponseEntity.status(200).body("User deleted!");
     }
 
+    @PostMapping("/register")
+    public ResponseEntity register(@Valid @RequestBody MyUser myUser){
+        myUserService.register(myUser);
+        return  ResponseEntity.status(201).body("Admin registered !");
+    }
 
+
+    @PostMapping("/login")
+    public ResponseEntity login(){
+        return ResponseEntity.status(200).body("Welcome back!");
+    }
 }

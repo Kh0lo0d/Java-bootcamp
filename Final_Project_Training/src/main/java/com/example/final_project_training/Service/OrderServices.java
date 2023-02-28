@@ -22,7 +22,7 @@ public class OrderServices {
 private final Coach_Repository coachRepository;
 private final Training_Repositary training_repositary;
 private final Customer_Repository customerRepository;
-    public List getAllOrders() {
+    public List<Order_table> getAllOrders() {
         return orderRepositary.findAll();
     }
 

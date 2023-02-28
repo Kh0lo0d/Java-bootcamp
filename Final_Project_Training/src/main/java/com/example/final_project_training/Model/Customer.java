@@ -24,8 +24,18 @@ public class Customer {
 
     @Column(columnDefinition = "varchar(30) not null")
     private String name;
+
+    @NotEmpty(message="gender should be not empty")
+    @Pattern(regexp="^(Female|Male)$",
+            message="Wrong gender ,gender should be Female or Male only")
+    private String gender;
     @Column(columnDefinition = "varchar(10) not null")
     private String phone_number;
+    @NotEmpty(message="email should be not empty")
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
+            flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Column(columnDefinition = "varchar(25) unique not null")
+    private String email;
     @Column(columnDefinition = "int not null")
     private Integer age;
     @Column(columnDefinition = "int not null")
@@ -39,15 +49,8 @@ public class Customer {
     @Column(columnDefinition = "varchar(100) not null")
     private String address;
 
-    @NotEmpty(message="email should be not empty")
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
-            flags = Pattern.Flag.CASE_INSENSITIVE)
-    @Column(columnDefinition = "varchar(25) unique not null")
-    private String email;
-    @NotEmpty(message="gender should be not empty")
-    @Pattern(regexp="^(Female|Male)$",
-            message="Wrong gender ,gender should be Female or Male only")
-    private String gender;
+
+
 
 
 

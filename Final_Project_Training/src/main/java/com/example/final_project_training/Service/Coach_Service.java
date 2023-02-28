@@ -77,9 +77,10 @@ public class Coach_Service {
 
 public void addUser_Coach(MyUserCoachDTO myUserCoachDTO){
         MyUser myUser=myUserRepository.findMyUserById(myUserCoachDTO.getCoach_id());
-        Coach coach=new Coach(null,myUserCoachDTO.getName(),myUserCoachDTO.getPhone_number(),myUserCoachDTO.getLicense(),
-                myUserCoachDTO.getYear_of_experience(),myUserCoachDTO.getGender(),myUserCoachDTO.getCity(),
-                myUserCoachDTO.getAddress(),null,null,null,myUser);
+        Coach coach=new Coach(null,myUserCoachDTO.getName(),myUserCoachDTO.getGender(),myUserCoachDTO.getPhone_number(),
+                myUserCoachDTO.getCity(),myUserCoachDTO.getAddress(),myUserCoachDTO.getLicense(),
+                myUserCoachDTO.getYear_of_experience(),
+                null,null,null,myUser);
         coachRepository.save(coach);
 }
     public List<MyUser> AllCoachbyID(Integer id,MyUserCoachDTO myUserCoachDTO)

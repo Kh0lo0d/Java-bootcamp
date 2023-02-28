@@ -35,6 +35,10 @@ public class Reviews_Controller {
         reviewsService.deleteReviews(id);
         return ResponseEntity.status(200).body("Reviews deleted");
     }
-
+    @PostMapping("/add/{id}")
+    public ResponseEntity addReviews(@Valid @RequestBody Reviews reviews, @PathVariable Integer id) {
+        reviewsService.addReviews(reviews, id);
+        return ResponseEntity.status(200).body("Reviews added");
+    }
 
 }
