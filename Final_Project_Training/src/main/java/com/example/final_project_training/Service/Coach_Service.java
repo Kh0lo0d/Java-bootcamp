@@ -83,6 +83,35 @@ public void addUser_Coach(MyUserCoachDTO myUserCoachDTO){
                 null,null,null,myUser);
         coachRepository.save(coach);
 }
+
+    public void updateUserCoach(Integer id,MyUserCoachDTO myUserCoachDTO) {
+        Coach coach = coachRepository.findCoachById(myUserCoachDTO.getCoach_id());
+        if (coach == null)
+            throw new ApiException("COACH NOT FOUND");
+        coach.setName(myUserCoachDTO.getName());
+        coach.setGender(myUserCoachDTO.getGender());
+        coach.setPhone_number(myUserCoachDTO.getPhone_number());
+        coach.setCity(myUserCoachDTO.getCity());
+        coach.setAddress(myUserCoachDTO.getAddress());
+        coach.setLicense(myUserCoachDTO.getLicense());
+        coach.setYear_of_experience(myUserCoachDTO.getYear_of_experience());
+        coachRepository.save(coach);
+
+
+    }
+
+
+    public void deleteUserCoach(Integer id)
+    {
+        Coach coach=coachRepository.findCoachById(id);
+        if(coach==null){
+            throw new ApiException("coach not found");
+        }
+        coachRepository.delete(coach);
+    }
+
+
+
     public List<MyUser> AllCoachbyID(Integer id,MyUserCoachDTO myUserCoachDTO)
     {
         MyUser  myUser=myUserRepository.findMyUserById(myUserCoachDTO.getCoach_id());

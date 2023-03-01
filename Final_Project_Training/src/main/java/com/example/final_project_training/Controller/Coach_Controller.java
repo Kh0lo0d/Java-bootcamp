@@ -66,4 +66,16 @@ public class Coach_Controller {
 
 
     }
+
+    @PutMapping("/updateUserCoach/{id}")
+    public ResponseEntity updateUserCoach(@PathVariable Integer id, @Valid @RequestBody MyUserCoachDTO myUserCoachDTO){
+        coachService.updateUserCoach(id,myUserCoachDTO);
+        return ResponseEntity.status(200).body("coach update");
+    }
+
+    @DeleteMapping("/deleteUsercoach/{id}")
+    public ResponseEntity deleteUserCoach(@PathVariable Integer id){
+        coachService.deleteUserCoach(id);
+        return ResponseEntity.status(200).body("coach deleted");
+    }
 }

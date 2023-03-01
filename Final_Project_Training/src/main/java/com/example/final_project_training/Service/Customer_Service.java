@@ -125,21 +125,18 @@ public class Customer_Service {
             return coachRepository.findCoachByGender("Male");
 
     }
-    public List<Coach> Display_CoachByGender(Integer customer_id)
+    public List<Coach> Display_CoachByGender(String gender)
     {
-        Customer customer=customerRepository.findCustomerById(customer_id);
+          if(gender.equals("Female"))
+              return coachRepository.findCoachByGender("Female");
 
-
-        if ( customer == null) {
-            throw new ApiException("customer  not Found");
-        }
-        String gender= customer.getGender();
-        if (gender.equals("Female"))
-            return coachRepository.findCoachByGender("Female");
-
-
-        else
+        if(gender.equals("Male"))
             return coachRepository.findCoachByGender("Male");
+
+        if ( !gender.equals("Male") && !gender.equals("Female")) {
+            throw new ApiException("Gender  not Found");
+        }
+      return null;
 
     }
 
@@ -159,6 +156,44 @@ public class Customer_Service {
 
 
     }
+
+
+    public void updateUserCustomer(Integer id,UserCustomerDTO userCustomerDTO)
+    {
+        Customer customer=customerRepository.findCustomerById(userCustomerDTO.getUser_id());
+        if(customer==null)
+            throw new ApiException("CUSTOMER NOT FOUND");
+        customer.setName(userCustomerDTO.getName());
+        customer.setGender(userCustomerDTO.getGender());
+        customer.setPhone_number(userCustomerDTO.getPhone_number());
+        customer.setEmail(userCustomerDTO.getEmail());
+        customer.setAge(userCustomerDTO.getAge());
+        customer.setLength(userCustomerDTO.getLength());
+        customer.setWeight(userCustomerDTO.getWeight());
+        customer.setHealth_problem(userCustomerDTO.getHealth_problem());
+        customer.setCity(userCustomerDTO.getCity());
+        customer.setAddress(userCustomerDTO.getAddress());
+        customerRepository.save(customer);
+    }
+
+
+    public void deleteUserCustomer(Integer id)
+    {
+        Customer customer=customerRepository.findCustomerById(id);
+        if(customer==null){
+            throw new ApiException("customer not found");
+        }
+        customerRepository.delete(customer);
+    }
+
+
+
+
+
+
+
+
+
 
 
     public List<MyUser> AllCustomersbyID(Integer id,UserCustomerDTO userCustomerDTO)

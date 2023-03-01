@@ -74,9 +74,9 @@ private final TraingSrevice_Services traingSreviceServices;
         return ResponseEntity.status(200).body(coaches);
     }
 
-    @GetMapping("/display_coaches_byGender/{customer_id}")//This endpoint for display coaches according gender
-    public ResponseEntity Display_CoachByGender(@PathVariable Integer customer_id)
-    {List<Coach> coaches=customerService.Display_CoachByGender(customer_id);
+    @GetMapping("/display_coaches_byGender/{gender}")//This endpoint for display coaches according gender
+    public ResponseEntity Display_CoachByGender(@PathVariable String gender)
+    {List<Coach> coaches=customerService.Display_CoachByGender(gender);
         return ResponseEntity.status(200).body(coaches);
     }
 
@@ -95,4 +95,18 @@ private final TraingSrevice_Services traingSreviceServices;
 
 
     }
+
+    @PutMapping("/updateUserCustomer/{id}")
+    public ResponseEntity updateUserCustomer(@PathVariable Integer id, @Valid @RequestBody UserCustomerDTO userCustomerDTO){
+        customerService.updateUserCustomer(id, userCustomerDTO);
+        return ResponseEntity.status(200).body("Customer update");
+    }
+
+    @DeleteMapping("/deleteUserCustomer/{id}")
+    public ResponseEntity deleteUserCustomer(@PathVariable Integer id){
+        customerService.deleteUserCustomer(id);
+        return ResponseEntity.status(200).body("Customer deleted");
+    }
+
+
 }

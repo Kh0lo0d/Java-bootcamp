@@ -10,6 +10,8 @@ import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -25,11 +27,11 @@ public class Order_table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-    private Date start_Date;
+    private LocalDate start_Date;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-    private Date end_Date;
+    private LocalDate end_Date;
     @JsonFormat(pattern="HH:mm:ss")
-    private Time time;
+    private LocalTime time;
 
     @Positive(message="total_price must be Integer and grater than 0")
     private Double total_price;
